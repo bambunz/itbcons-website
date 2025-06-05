@@ -1,0 +1,390 @@
+/* public/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    min-height: calc(100vh - 220px);
+}
+
+.hero {
+    background-image: url('//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/hero.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero .button {
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+}
+
+.services-hero {
+    background-color: #1c2833;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.services-hero .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.services-hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.services-hero p {
+    font-size: 1.15rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white !important;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #2980b9;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.content-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Added .page-content for dedicated page specific styling if needed */
+.page-content h1 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: left; /* Align main page titles to the left */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+.page-content h2 {
+    color: #3498db;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+.page-content p {
+    margin-bottom: 20px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+
+.features, .services-showcase {
+    padding: 0px 0;
+    margin-bottom: 30px;
+}
+
+.feature-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 25px;
+    margin-top: 0;
+}
+
+/* Feature item is now an anchor tag */
+a.feature-item {
+    background-color: #ecf0f1;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 300px;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none; /* Remove underline from link */
+    /* color: inherit; */ /* Let children define their color */
+}
+
+a.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.feature-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.service-item-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+a.feature-item h3 { /* Ensure h3 inside link has correct color */
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
+
+a.feature-item p { /* Ensure p inside link has correct color */
+    color: #333; /* Default paragraph color */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.feature-item .button-small {
+    margin-top: auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.service-card {
+    background-color: #ecf0f1;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.service-card h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.button-small {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.contact-form label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: -10px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button {
+    align-self: flex-start;
+}
+
+.contact-info {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.service-detail-page {
+    padding: 30px;
+}
+
+.service-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-main-image {
+    max-width: 100%;
+    width: 600px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-header h1 {
+    font-size: 2.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.service-short-description {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.service-content h2 {
+    font-size: 1.8rem;
+    color: #3498db;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.service-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.call-to-action {
+    background-color: #ecf0f1;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.call-to-action p {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 40px;
+    border-top: 3px solid #3498db;
+}
+
+@media (max-width: 768px) {
+    .hero h1, .services-hero h1 {
+        font-size: 2.2rem;
+    }
+    .hero p, .services-hero p {
+        font-size: 1.1rem;
+    }
+
+    .feature-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    a.feature-item { /* Ensure linked feature items stack correctly */
+        max-width: 90%;
+        margin-bottom: 20px;
+        flex-basis: auto;
+    }
+    a.feature-item:last-child {
+        margin-bottom: 0;
+    }
+    .feature-item img, .service-item-image {
+        height: 160px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-header h1 {
+        font-size: 2.2rem;
+    }
+    .service-main-image {
+        width: 90%;
+    }
+
+    .page-content h1 {
+        font-size: 1.8rem; /* Adjust for mobile */
+    }
+    .page-content h2 {
+        font-size: 1.5rem; /* Adjust for mobile */
+    }
+}

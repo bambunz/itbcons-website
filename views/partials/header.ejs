@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 20px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        a.logo-container { /* The container for the logo image is the link */
+            display: flex; /* Still useful if you ever add text back or need alignment */
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            max-height: 40px; /* Adjust logo height as needed */
+            /* margin-right: 15px; /* No longer needed if text is gone, but can keep if desired */
+        }
+
+        /* .logo-text CSS rule removed as the element is gone */
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo-container">
+            <img src="//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/itblogo.png" alt="ITB Logo" class="logo-image">
+            </a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>

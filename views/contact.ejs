@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<section class="content-section">
+    <h1>Contact Us</h1>
+    <p>We are ready to listen to your needs and offer you the best solution. Please fill out the form below, or reach out to us directly.</p>
+    <form class="contact-form" action="#" method="POST"> <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button type="submit" class="button">Send Message</button>
+    </form>
+    <p class="contact-info">You can also reach us directly at: <strong><%= contactEmail %></strong></p>
+</section>
+
+<%- include('partials/footer') %>
