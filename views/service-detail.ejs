@@ -1,27 +1,40 @@
 <%- include('partials/header') %>
 
-<section class="content-section service-detail-page">
-    <div class="service-header">
-        <img src="<%= service.image %>" alt="<%= service.name %> Service" class="service-main-image">
+<div class="container page-content">
+    <section class="page-hero">
         <h1><%= service.name %></h1>
-        <p class="service-short-description"><%= service.shortDescription %></p>
-    </div>
-
-    <div class="service-content">
+        <p><%= service.shortDescription %></p>
+    </section>
+    
+    <article class="service-details-content">
+        <img src="<%= service.image %>" alt="<%= service.name %>" style="width:100%; height:auto; border-radius: 5px; margin-bottom: 30px;">
         <h2><%= service.details.heading1 %></h2>
-        <p><%- service.details.paragraph1.replace(/\n/g, '<br>') %></p> <h2><%= service.details.heading2 %></h2>
-        <p><%- service.details.paragraph2.replace(/\n/g, '<br>') %></p>
+        <p><%= service.details.paragraph1 %></p>
 
-        <% if (service.details.heading3 && service.details.paragraph3) { %>
-            <h2><%= service.details.heading3 %></h2>
-            <p><%- service.details.paragraph3.replace(/\n/g, '<br>') %></p>
-        <% } %>
-    </div>
+        <h2><%= service.details.heading2 %></h2>
+        <p><%= service.details.paragraph2 %></p>
 
-    <div class="call-to-action">
-        <p>Ready to enhance your security posture with our <%= service.name %> service? Contact us today!</p>
-        <a href="/contact" class="button">Get a Consultation</a>
-    </div>
-</section>
+        <h2><%= service.details.heading3 %></h2>
+        <p><%= service.details.paragraph3 %></p>
+    </article>
+
+    <nav class="service-navigation">
+        <div class="nav-links">
+            <% if (prevService) { %>
+                <a href="/services/<%= prevService.id %>" class="prev-service">
+                    <i class="fas fa-arrow-left"></i> Previous: <%= prevService.name %>
+                </a>
+            <% } else { %>
+                <span></span> <% } %>
+            
+            <% if (nextService) { %>
+                <a href="/services/<%= nextService.id %>" class="next-service">
+                    Next: <%= nextService.name %> <i class="fas fa-arrow-right"></i>
+                </a>
+            <% } else { %>
+                <span></span> <% } %>
+        </div>
+    </nav>
+</div>
 
 <%- include('partials/footer') %>

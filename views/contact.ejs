@@ -1,23 +1,32 @@
 <%- include('partials/header') %>
 
-<section class="content-section">
-    <h1>Contact Us</h1>
-    <p>We are ready to listen to your needs and offer you the best solution. Please fill out the form below, or reach out to us directly.</p>
-    <form class="contact-form" action="#" method="POST"> <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+<div class="container page-content">
+    <section class="page-hero">
+        <h1>Contact Us</h1>
+        <p>We're here to help. Reach out to us with any questions.</p>
+    </section>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject">
-
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-
-        <button type="submit" class="button">Send Message</button>
-    </form>
-    <p class="contact-info">You can also reach us directly at: <strong><%= contactEmail %></strong></p>
-</section>
+    <div class="contact-grid" style="display:block; max-width: 800px; margin: 40px auto;">
+        <div class="contact-info-block">
+            <h3>Get In Touch</h3>
+            <p>Whether you have a question about our services, pricing, or anything else, our team is ready to answer all your questions. You can contact us by email.</p>
+            
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div class="info-text">
+                    <strong>Email Us</strong>
+                    <a href="mailto:<%= contactEmail %>"><%= contactEmail %></a>
+                </div>
+            </div>
+             <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="info-text">
+                    <strong>Our Office</strong>
+                    <span>Patong, Kathu, Phuket 83150, Thailand</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include('partials/footer') %>

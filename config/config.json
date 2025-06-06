@@ -1,0 +1,9 @@
+{
+    "host": "mail.smtp2go.com",
+    "port": 587,
+    "secure": false,
+    "user": "itbconsrelay",
+    "pass": "anFsMGZhMmpnNmUw",
+    "recipient": "info@itbcons.com",
+    "from": "noreply@itbcons.com"
+}
