@@ -1,23 +1,32 @@
 <%- include('partials/header') %>
 
-<section class="page-hero">
-    <div class="container">
-        <h1><%= heroHeading %></h1>
-        <p><%= heroSubheading %></p>
-        <a href="/services" class="btn">Explore Our Services</a>
-    </div>
-</section>
+<div class="container page-content">
+    
+    <section class="feature-buttons-section">
+        <% if (locals.featureButtons) { %>
+            <% featureButtons.forEach(button => { %>
+                <a href="<%= button.link %>" class="feature-button-card" style="background-image: url('<%= button.image %>');">
+                    <div class="feature-button-overlay"></div>
+                    <h3 class="feature-button-title"><%= button.title %></h3>
+                </a>
+            <% }) %>
+        <% } %>
+    </section>
 
-<div class="container">
-    <h2 style="text-align: center; font-size: 2rem; margin-top: 40px;">Our Core Services</h2>
-    <div class="service-link-grid">
-        <% servicesData.forEach(service => { %>
-            <a href="/services/<%= service.id %>" class="homepage-service-card">
-                <img src="<%= service.image %>" alt="<%= service.name %>">
-                <span><%= service.name %></span>
-            </a>
-        <% }) %>
-    </div>
+    <section class="core-services-section">
+        <h2 class="section-title">Our Core Services</h2>
+        <div class="service-link-grid">
+            <% if (locals.servicesData) { %>
+                <% servicesData.forEach(service => { %>
+                    <a href="/services/<%= service.id %>" class="homepage-service-card">
+                        <img src="<%= service.image %>" alt="<%= service.name %>">
+                        <span><%= service.name %></span>
+                    </a>
+                <% }) %>
+            <% } %>
+        </div>
+    </section>
+
 </div>
 
 <%- include('partials/footer') %>

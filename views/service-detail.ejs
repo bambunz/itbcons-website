@@ -1,23 +1,15 @@
 <%- include('partials/header') %>
 
 <div class="container page-content">
-    <section class="page-hero">
-        <h1><%= service.name %></h1>
-        <p><%= service.shortDescription %></p>
-    </section>
-    
     <article class="service-details-content">
-        <img src="<%= service.image %>" alt="<%= service.name %>" style="width:100%; height:auto; border-radius: 5px; margin-bottom: 30px;">
+        <img src="<%= service.image %>" alt="<%= service.name %>" class="service-detail-image">
         <h2><%= service.details.heading1 %></h2>
         <p><%= service.details.paragraph1 %></p>
-
         <h2><%= service.details.heading2 %></h2>
         <p><%= service.details.paragraph2 %></p>
-
         <h2><%= service.details.heading3 %></h2>
         <p><%= service.details.paragraph3 %></p>
     </article>
-
     <nav class="service-navigation">
         <div class="nav-links">
             <% if (prevService) { %>
@@ -25,14 +17,15 @@
                     <i class="fas fa-arrow-left"></i> Previous: <%= prevService.name %>
                 </a>
             <% } else { %>
-                <span></span> <% } %>
-            
+                <span></span>
+            <% } %>
             <% if (nextService) { %>
                 <a href="/services/<%= nextService.id %>" class="next-service">
                     Next: <%= nextService.name %> <i class="fas fa-arrow-right"></i>
                 </a>
             <% } else { %>
-                <span></span> <% } %>
+                <span></span>
+            <% } %>
         </div>
     </nav>
 </div>

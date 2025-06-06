@@ -1,29 +1,21 @@
 <%- include('partials/header') %>
 
 <div class="container page-content">
-    <section class="page-hero">
-        <h1>Contact Us</h1>
-        <p>We're here to help. Reach out to us with any questions.</p>
-    </section>
-
-    <div class="contact-grid" style="display:block; max-width: 800px; margin: 40px auto;">
-        <div class="contact-info-block">
-            <h3>Get In Touch</h3>
-            <p>Whether you have a question about our services, pricing, or anything else, our team is ready to answer all your questions. You can contact us by email.</p>
-            
-            <div class="info-item">
-                <i class="fas fa-envelope"></i>
-                <div class="info-text">
-                    <strong>Email Us</strong>
-                    <a href="mailto:<%= contactEmail %>"><%= contactEmail %></a>
-                </div>
+    <div style="background: #fff; padding: 30px; border-radius: 5px; max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2>Get In Touch</h2>
+        <p>Whether you have a question about our services, pricing, or anything else, our team is ready to answer all your questions. Please feel free to contact us via email.</p>
+        <div class="info-item" style="justify-content: center; margin-top: 30px;">
+            <i class="fas fa-envelope" style="font-size: 1.5rem;"></i>
+            <div class="info-text">
+                <strong>Email Us</strong>
+                <a href="mailto:<%= contactEmail %>"><%= contactEmail %></a>
             </div>
-             <div class="info-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <div class="info-text">
-                    <strong>Our Office</strong>
-                    <span>Patong, Kathu, Phuket 83150, Thailand</span>
-                </div>
+        </div>
+         <div class="info-item" style="justify-content: center; margin-top: 20px;">
+            <i class="fas fa-map-marker-alt" style="font-size: 1.5rem;"></i>
+            <div class="info-text">
+                <strong>Our Office</strong>
+                <span>Patong, Kathu, Phuket 83150, Thailand</span>
             </div>
         </div>
     </div>
