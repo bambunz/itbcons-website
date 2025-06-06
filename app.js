@@ -12,7 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files (CSS, client-side JavaScript) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// --- Centralized Service Data ---
+// --- Centralized Data ---
 const securityConsultingData = {
     id: 'security-consulting',
     name: 'Security Consulting',
@@ -120,7 +120,8 @@ const featureButtonsData = [
     }
 ];
 
-const bannerImage = '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/banners/hero.png';
+// CORRECTED PATH FOR THE BANNER IMAGE
+const bannerImage = '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/hero.png';
 
 // --- Main Routes ---
 app.get('/', (req, res) => {
@@ -198,8 +199,6 @@ app.get('/cutting-edge-technologies', (req, res) => {
     });
 });
 
-
-// Route for Service Detail Pages
 app.get('/services/:id', (req, res) => {
     const serviceId = req.params.id;
     const currentServiceIndex = servicesData.findIndex(s => s.id === serviceId);

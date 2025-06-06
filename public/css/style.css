@@ -399,7 +399,7 @@ a:hover {
         display: none;
     }
     .service-details-content {
-        margin-top: 40px; /* remove negative margin on mobile */
+        margin-top: 40px;
         padding: 20px;
     }
 }
