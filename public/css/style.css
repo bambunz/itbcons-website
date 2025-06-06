@@ -228,6 +228,7 @@ a:hover {
     text-align: center;
     font-size: 2.2rem;
     margin-bottom: 40px;
+    color: var(--dark-blue-bg);
 }
 
 .service-link-grid {
