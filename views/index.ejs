@@ -1,29 +1,23 @@
 <%- include('partials/header') %>
 
-<section class="hero">
-    <h1><%= heroHeading %></h1>
-    <p><%= heroSubheading %></p>
-    <a href="/services" class="button">Discover Our Services</a>
-</section>
-
-<section class="features">
-    <div class="feature-grid">
-        <a href="/expertise" class="feature-item">
-            <img src="//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/s3-expertise-team.jpg" alt="In-depth Expertise">
-            <h3>In-depth Expertise</h3>
-            <p>Team of certified experts in the IT and security sectors.</p>
-        </a>
-        <a href="/tailored-solutions" class="feature-item">
-            <img src="//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/s3-tailored-solutions.jpg" alt="Tailored Solutions">
-            <h3>Tailored Solutions</h3>
-            <p>Custom services to meet the unique needs of your business.</p>
-        </a>
-        <a href="/cutting-edge-technologies" class="feature-item">
-            <img src="//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/s3-cutting-edge-tech.jpg" alt="Cutting-Edge Technologies">
-            <h3>Cutting-Edge Technologies</h3>
-            <p>We leverage the latest innovations to ensure maximum protection.</p>
-        </a>
+<section class="page-hero">
+    <div class="container">
+        <h1><%= heroHeading %></h1>
+        <p><%= heroSubheading %></p>
+        <a href="/services" class="btn">Explore Our Services</a>
     </div>
 </section>
+
+<div class="container">
+    <h2 style="text-align: center; font-size: 2rem; margin-top: 40px;">Our Core Services</h2>
+    <div class="service-link-grid">
+        <% servicesData.forEach(service => { %>
+            <a href="/services/<%= service.id %>" class="homepage-service-card">
+                <img src="<%= service.image %>" alt="<%= service.name %>">
+                <span><%= service.name %></span>
+            </a>
+        <% }) %>
+    </div>
+</div>
 
 <%- include('partials/footer') %>
