@@ -102,58 +102,145 @@ const servicesData = [
     securityConsultingData
 ];
 
+const featureButtonsData = [
+    {
+        title: 'In-depth Expertise',
+        image: '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/feature-advantage-1.jpg',
+        link: '/expertise'
+    },
+    {
+        title: 'Tailored Solutions',
+        image: '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/feature-advantage-2.jpg',
+        link: '/tailored-solutions'
+    },
+    {
+        title: 'Cutting-Edge Technologies',
+        image: '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/feature-advantage-3.jpg',
+        link: '/cutting-edge-technologies'
+    }
+];
 
-// Main Routes
+const bannerImage = '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/banners/hero.png';
+
+// --- Main Routes ---
 app.get('/', (req, res) => {
     res.render('index', {
         pageTitle: 'Home - ITB',
-        heroHeading: 'Innovative Solutions for Digital Security',
-        heroSubheading: 'Protecting Your Future in the Digital World',
-        servicesData: servicesData
+        servicesData: servicesData,
+        featureButtons: featureButtonsData,
+        banner: {
+            title: 'Innovative Solutions for Digital Security',
+            imageUrl: bannerImage
+        }
     });
 });
 
 app.get('/services', (req, res) => {
     res.render('services', {
         pageTitle: 'Services - ITB',
-        servicesList: servicesData
+        servicesList: servicesData,
+        banner: {
+            title: 'Comprehensive IT & Security Services',
+            imageUrl: bannerImage
+        }
     });
 });
 
 app.get('/about', (req, res) => {
     res.render('about', {
         pageTitle: 'About Us - ITB',
-        companyDescription: 'We are a team of expert IT and security professionals, dedicated to providing cutting-edge solutions to protect our clients\' infrastructure and data.'
+        companyDescription: 'We are a team of expert IT and security professionals, dedicated to providing cutting-edge solutions to protect our clients\' infrastructure and data.',
+        banner: {
+            title: 'Your Dedicated Partner in Digital Defense',
+            imageUrl: bannerImage
+        }
     });
 });
 
 app.get('/contact', (req, res) => {
     res.render('contact', {
         pageTitle: 'Contact Us - ITB',
-        contactEmail: 'info@itbcons.com'
+        contactEmail: 'info@itbcons.com',
+        banner: {
+            title: 'Get In Touch With Our Experts',
+            imageUrl: bannerImage
+        }
     });
 });
+
+app.get('/expertise', (req, res) => {
+    res.render('expertise', {
+        pageTitle: 'In-depth Expertise - ITB',
+        banner: {
+            title: 'A Foundation of Deep Expertise',
+            imageUrl: bannerImage
+        }
+    });
+});
+
+app.get('/tailored-solutions', (req, res) => {
+    res.render('tailored-solutions', {
+        pageTitle: 'Tailored Solutions - ITB',
+        banner: {
+            title: 'Solutions, Precisely Tailored to You',
+            imageUrl: bannerImage
+        }
+    });
+});
+
+app.get('/cutting-edge-technologies', (req, res) => {
+    res.render('cutting-edge-technologies', {
+        pageTitle: 'Cutting-Edge Technologies - ITB',
+        banner: {
+            title: 'Harnessing the Power of Innovation',
+            imageUrl: bannerImage
+        }
+    });
+});
+
 
 // Route for Service Detail Pages
 app.get('/services/:id', (req, res) => {
     const serviceId = req.params.id;
-    const service = servicesData.find(s => s.id === serviceId);
-    if (service) {
-        res.render('service-detail', {
-            pageTitle: `${service.name} - ITB`,
-            service: service
-        });
-    } else {
-        res.status(404).render('404', { pageTitle: 'Page Not Found - ITB' });
+    const currentServiceIndex = servicesData.findIndex(s => s.id === serviceId);
+    if (currentServiceIndex === -1) {
+        return res.status(404).render('404', {
+            pageTitle: 'Page Not Found - ITB',
+            banner: {
+                title: 'The Page Was Not Found',
+                imageUrl: bannerImage
+            }
+         });
     }
+
+    const service = servicesData[currentServiceIndex];
+    const prevService = currentServiceIndex > 0 ? servicesData[currentServiceIndex - 1] : null;
+    const nextService = currentServiceIndex < servicesData.length - 1 ? servicesData[currentServiceIndex + 1] : null;
+
+    res.render('service-detail', {
+        pageTitle: `${service.name} - ITB`,
+        service: service,
+        prevService: prevService,
+        nextService: nextService,
+        banner: {
+            title: service.name,
+            imageUrl: service.image
+        }
+    });
 });
 
 // Catch-all for 404 errors
 app.use((req, res, next) => {
-    res.status(404).render('404', { pageTitle: 'Page Not Found - ITB' });
+    res.status(404).render('404', {
+        pageTitle: 'Page Not Found - ITB',
+        banner: {
+            title: 'The Page Was Not Found',
+            imageUrl: bannerImage
+        }
+    });
 });
 
 // Start the server
 app.listen(port, host, () => {
-    console.log(`Server started on http://${host}:${port} (listening on localhost only)`);
+    console.log(`Server started on http://${host}:${port}`);
 });

@@ -23,4 +23,14 @@
             </nav>
         </div>
     </header>
+
+    <% if (locals.banner && banner.imageUrl) { %>
+        <div class="main-banner" style="background-image: url('<%= banner.imageUrl %>');">
+            <div class="banner-overlay"></div>
+            <div class="container">
+                <h1 class="banner-title"><%= banner.title %></h1>
+            </div>
+        </div>
+    <% } %>
+
     <main>
