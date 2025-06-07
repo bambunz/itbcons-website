@@ -404,3 +404,104 @@ a:hover {
         padding: 20px;
     }
 }
+
+/* =============================================
+   Contact Form Styles
+   ============================================= */
+
+/* Style the container for the form */
+.contact-form {
+  max-width: 700px; /* Or whatever width fits your site's layout */
+  margin: 2rem auto; /* Use your site's standard spacing */
+  padding: 2rem;
+  background-color: #f9f9f9; /* Or transparent, or a card background color you use elsewhere */
+  border: 1px solid #e0e0e0; /* Your site's standard border color */
+  border-radius: 8px; /* Your site's standard border-radius */
+}
+
+/* Style the labels for each form field */
+.form-group label {
+  display: block;
+  font-family: inherit; /* This will use your site's main font */
+  font-weight: bold;  /* Or whatever weight you use for labels */
+  color: #333; /* Your site's primary text color */
+  margin-bottom: 0.5rem;
+}
+
+/* General styles for both input fields and the textarea */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-family: inherit; /* Ensures form fields use your site's font */
+  font-size: 1rem;
+  color: #222; /* Text color for typing */
+  background-color: #fff;
+  border: 1px solid #ccc; /* A standard border color */
+  border-radius: 4px; /* A subtle rounding */
+  box-sizing: border-box; /* Important for consistent sizing */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+/* Style for when a user clicks into a form field */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none; /* Removes the default browser outline */
+  border-color: #007bff; /* CHANGE THIS to your site's primary accent color */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* CHANGE THIS to match your accent color */
+}
+
+/* --- The Most Important Part: The Button --- */
+
+/* OPTION A (Recommended): Use your existing button class.
+  If your site has a class for buttons (e.g., .btn, .button-primary),
+  simply add it to the button in contact.ejs:
+  <button type="submit" class="btn">Send Message</button>
+*/
+
+/* OPTION B: Style it from scratch to match.
+  If you don't have a reusable class, use this as a guide.
+*/
+.contact-form button {
+  display: inline-block;
+  width: 100%; /* Or 'auto' if you prefer smaller buttons */
+  padding: 0.8rem 1.5rem;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px; /* Match your other buttons */
+  border: none;
+
+  /* CHANGE THESE to match your primary button style */
+  background-color: #007bff;
+  color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  /* CHANGE THIS to a slightly darker shade for the hover effect */
+  background-color: #0056b3;
+}
+
+/* Styles for the success/error alerts */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px; /* Match other elements */
+  font-size: 1rem;
+}
+
+.alert.success {
+  background-color: #d4edda; /* A light green, adjust if needed */
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert.error {
+  background-color: #f8d7da; /* A light red, adjust if needed */
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
