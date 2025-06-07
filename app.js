@@ -1,18 +1,96 @@
-// app.js
+// ===============================================
+// --- IMPORTS AND INITIALIZATION ---
+// ===============================================
 const express = require('express');
 const path = require('path');
+const nodemailer = require('nodemailer');
+const config = require('../itbcons-website-config/config.json'); // Load the SMTP configuration
+
 const app = express();
 const port = process.env.PORT || 3000;
 const host = '127.0.0.1'; // Listen on localhost only
 
-// EJS template engine configuration
+
+// ===============================================
+// --- MIDDLEWARE SETUP (CORRECT ORDER) ---
+// ===============================================
+
+// 1. EJS template engine configuration
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files (CSS, client-side JavaScript) from the 'public' directory
+// 2. Serve static files (CSS, client-side JavaScript) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// --- Centralized Data ---
+// 3. Parse URL-encoded bodies (as sent by HTML forms)
+//    This middleware MUST come before any routes that need to access req.body.
+app.use(express.urlencoded({ extended: true }));
+
+
+// ===============================================
+// --- ROUTE HANDLERS ---
+// ===============================================
+
+// POST route for sending email (Handles the contact form)
+app.post('/send-email', async (req, res) => {
+    // req.body now correctly holds the form data thanks to the middleware above.
+    const { name, email, subject, message } = req.body;
+
+    // Create a Nodemailer "transporter" using the data from config.json
+    const transporter = nodemailer.createTransport({
+        host: config.host,
+        port: config.port,
+        secure: config.secure,
+        auth: {
+            user: config.user,
+            pass: config.pass
+        }
+    });
+
+    // Define the email options
+    const mailOptions = {
+        from: `"${name}" <${config.from}>`, // Use the authorized "from" address from your config
+        replyTo: email,                      // Set the user's email as the reply-to address
+        to: config.recipient,                // The address that receives the form submissions
+        subject: `New Contact Form Submission: ${subject}`,
+        text: `You have a new message from:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        html: `<p>You have a new message from:</p>
+               <ul>
+                 <li><strong>Name:</strong> ${name}</li>
+                 <li><strong>Email:</strong> ${email}</li>
+               </ul>
+               <p><strong>Message:</strong></p>
+               <p>${message}</p>`
+    };
+
+    // Send the email and handle success/failure
+    try {
+        await transporter.sendMail(mailOptions);
+        // On success, render the success page
+        res.render('contact-success', {
+            pageTitle: 'Message Sent - ITB',
+            banner: {
+                title: 'Thank You!',
+                imageUrl: bannerImage // Assumes bannerImage constant is available
+            }
+        });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        // On error, render the error page
+        res.render('contact-error', {
+            pageTitle: 'Submission Error - ITB',
+            banner: {
+                title: 'Something Went Wrong',
+                imageUrl: bannerImage // Assumes bannerImage constant is available
+            }
+        });
+    }
+});
+
+
+// ===============================================
+// --- SITE DATA (for templates) ---
+// ===============================================
 const securityConsultingData = {
     id: 'security-consulting',
     name: 'Security Consulting',
@@ -122,7 +200,11 @@ const featureButtonsData = [
 
 const bannerImage = '//itb-img.s3.ap-southeast-1.amazonaws.com/public/images/hero.png';
 
-// --- Main Routes ---
+
+// ===============================================
+// --- MAIN GET ROUTES ---
+// ===============================================
+
 app.get('/', (req, res) => {
     res.render('index', {
         pageTitle: 'Home - ITB',
@@ -158,13 +240,15 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
+    // Pass the query params to the view so we can show success/error messages
     res.render('contact', {
         pageTitle: 'Contact Us - ITB',
         contactEmail: 'info@itbcons.com',
         banner: {
             title: 'Get In Touch With Our Experts',
             imageUrl: bannerImage
-        }
+        },
+        query: req.query
     });
 });
 
@@ -209,7 +293,7 @@ app.get('/services/:id', (req, res) => {
                 title: 'The Page Was Not Found',
                 imageUrl: bannerImage
             }
-         });
+        });
     }
 
     const service = servicesData[currentServiceIndex];
@@ -228,7 +312,12 @@ app.get('/services/:id', (req, res) => {
     });
 });
 
-// Catch-all for 404 errors
+
+// ===============================================
+// --- 404 AND SERVER START ---
+// ===============================================
+
+// Catch-all for 404 errors (must be the last route)
 app.use((req, res, next) => {
     res.status(404).render('404', {
         pageTitle: 'Page Not Found - ITB',
