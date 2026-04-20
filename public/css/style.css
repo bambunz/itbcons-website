@@ -123,6 +123,27 @@ a:hover {
     color: #fff;
     font-weight: bold;
 }
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.footer-copy {
+    margin: 0;
+}
+.footer-chat {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.footer-chat .chat-window-wrapper {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    z-index: 1000;
+}
 
 /* =================================
    Main Banner
