@@ -137,12 +137,28 @@ a:hover {
     position: relative;
     display: inline-flex;
     align-items: center;
+    --chat--toggle--size: 40px;
 }
-.footer-chat .chat-window-wrapper {
+#n8n-chat-footer .chat-window-wrapper {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    max-width: none;
+    max-height: none;
+    display: inline-flex;
+    align-items: center;
+}
+#n8n-chat-footer .chat-window-toggle {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+#n8n-chat-footer .chat-window {
     position: absolute;
     bottom: calc(100% + 10px);
     right: 0;
-    z-index: 1000;
+    z-index: 9999;
+    margin-bottom: 0;
 }
 
 /* =================================
