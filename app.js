@@ -5,6 +5,36 @@ const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const config = require('../itbcons-website-config/config.json'); // Load the SMTP configuration
+const altchaExpress = require('altcha-lib/frameworks/express');
+const { deriveKey: altchaDeriveKey } = require('altcha-lib/algorithms/pbkdf2');
+
+// ALTCHA (self-hosted proof-of-work captcha) for the contact form.
+// The HMAC secret comes from ALTCHA_HMAC_KEY or config.json -> "altchaHmacKey".
+const altchaHmacKey = process.env.ALTCHA_HMAC_KEY || config.altchaHmacKey;
+if (!altchaHmacKey || altchaHmacKey.length < 32) {
+    throw new Error('ALTCHA HMAC key missing or too short: set "altchaHmacKey" in config.json (>= 32 chars) or ALTCHA_HMAC_KEY');
+}
+
+const altcha = altchaExpress.create({
+    deriveKey: altchaDeriveKey,
+    hmacSignatureSecret: altchaHmacKey,
+    createChallengeParameters: () => ({
+        algorithm: 'PBKDF2/SHA-256',
+        cost: 5000,
+        counter: altchaExpress.randomInt(5000, 10000),
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000) // challenge valid for 10 minutes
+    }),
+    // Replay protection: each solved challenge can be used once (in-memory, per process)
+    store: new altchaExpress.CappedMap({ maxSize: 10000 })
+});
+
+// Escape user input before putting it into the HTML email body
+const escapeHtml = (value) => String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +52,9 @@ app.set('views', path.join(__dirname, 'views'));
 // 2. Serve static files (CSS, client-side JavaScript) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 2b. Serve the ALTCHA widget bundle straight from node_modules (no third-party CDN)
+app.use('/vendor/altcha', express.static(path.join(__dirname, 'node_modules', 'altcha', 'dist', 'main')));
+
 // 3. Parse URL-encoded bodies (as sent by HTML forms)
 //    This middleware MUST come before any routes that need to access req.body.
 app.use(express.urlencoded({ extended: true }));
@@ -31,10 +64,26 @@ app.use(express.urlencoded({ extended: true }));
 // --- ROUTE HANDLERS ---
 // ===============================================
 
+// GET route that issues a signed ALTCHA challenge to the contact form widget
+app.get('/altcha/challenge', altcha.challengeHandler);
+
 // POST route for sending email (Handles the contact form)
-app.post('/send-email', async (req, res) => {
+// The ALTCHA middleware verifies the "altcha" form field and stores the result in res.locals.altcha
+app.post('/send-email', altcha.middleware({ throwOnFailure: false }), async (req, res) => {
     // req.body now correctly holds the form data thanks to the middleware above.
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, website } = req.body ?? {};
+
+    // Captcha failed (missing, invalid, expired or replayed payload)
+    if (res.locals.altcha?.error) {
+        console.warn(`ALTCHA verification failed from ${req.ip}: ${res.locals.altcha.error}`);
+        return res.redirect(303, '/contact?status=captcha');
+    }
+
+    // Honeypot: real users never see or fill the "website" field. Pretend success, send nothing.
+    if (website) {
+        console.warn(`Honeypot triggered from ${req.ip}`);
+        return res.redirect(303, '/contact?status=success');
+    }
 
     // Create a Nodemailer "transporter" using the data from config.json
     const transporter = nodemailer.createTransport({
@@ -56,11 +105,11 @@ app.post('/send-email', async (req, res) => {
         text: `You have a new message from:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
         html: `<p>You have a new message from:</p>
                <ul>
-                 <li><strong>Name:</strong> ${name}</li>
-                 <li><strong>Email:</strong> ${email}</li>
+                 <li><strong>Name:</strong> ${escapeHtml(name)}</li>
+                 <li><strong>Email:</strong> ${escapeHtml(email)}</li>
                </ul>
                <p><strong>Message:</strong></p>
-               <p>${message}</p>`
+               <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>`
     };
 
     // Send the email and handle success/failure

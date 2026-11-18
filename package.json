@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "altcha": "^3.6.0",
+    "altcha-lib": "^2.9.0",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
     "nodemailer": "^8.0.8"

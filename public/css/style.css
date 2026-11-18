@@ -553,3 +553,17 @@ a:hover {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+/* --- Contact form: honeypot + ALTCHA captcha --- */
+.form-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-captcha {
+    display: flex;
+    justify-content: center;
+}
